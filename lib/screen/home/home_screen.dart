@@ -10,15 +10,15 @@ import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
 
-   const HomeScreen({Key? key}) : super(key: key);
+   const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   List<Map<String, dynamic>> artikel = [];
- 
   String _username = "";
 
   @override
@@ -37,20 +37,16 @@ class _HomeScreenState extends State<HomeScreen> {
     return username;
   }
 
-
   final ArtikelAPI _artikelAPI = ArtikelAPI();
 
   Future<void> _getArtikelData() async {
     try {
       final artikel = await _artikelAPI.getArtikel();
-    
       setState(() {
         this.artikel = artikel;
       });
-
-      
     } catch (error) {
-   
+    // ignore: avoid_print
     print("Error fetching artikel: $error");
     }
   }
@@ -59,136 +55,146 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
         return Scaffold(
           backgroundColor: ThemeColor().whiteColor,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(70.0),
-        child: AppBar(
-          backgroundColor: ThemeColor().pinkColor,
-          centerTitle: true,
-          title: Align(
-            alignment: Alignment.centerLeft,
-            child: Image.asset(
-              'assets/logo2.png',
-            ),
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20.0),
-              child: IconButton(
-                icon: Image.asset('assets/chatbotbutton.png'),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ChatBotScreen()),
-                  );
-                },
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(70.0),
+            child: AppBar(
+              backgroundColor: ThemeColor().pinkColor,
+              centerTitle: true,
+              title: Align(
+                alignment: Alignment.centerLeft,
+                child: Image.asset(
+                  'assets/logo2.png',
+                ),
               ),
-            ),
-          ],
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(40),
-              bottomRight: Radius.circular(40),
-            ),
-          ),
-        ),
-      ),
-          body: Column(
-            children: [
-            const SizedBox(height: 10),
-             Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                child: Text(
-                  'Hi! $_username',
-                  style: ThemeTextStyle().welcomeUsername,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: IconButton(
+                    icon: Image.asset('assets/chatbotbutton.png'),
+                    onPressed: () {
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ChatBotScreen()),
+                    );
+                  },
+                ),
+              ),
+            ],
+
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(40),
+                    bottomRight: Radius.circular(40),
+                  ),
                 ),
               ),
             ),
-            IconButton(
-              icon: const Icon(Icons.logout),
-              color: ThemeColor().pinkColor,
-              onPressed: () async {
-              Navigator.pushAndRemoveUntil(
+
+          body: Column(
+            children: [
+              const SizedBox(height: 10),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                  child: Text(
+                    'Hi! $_username',
+                    style: ThemeTextStyle().welcomeUsername,
+                  ),
+                ),
+              ),
+
+              IconButton(
+                icon: const Icon(Icons.logout),
+                color: ThemeColor().pinkColor,
+                onPressed: () async {
+                  Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
                       builder: (_) => const SplashScreen(),
                     ),
                     (route) => false);
-                await SharedPref().removeToken();
-            }
-          ),
-
-          SizedBox(
-              width: double.infinity,
-              child: CarouselSlider.builder(
-                itemCount: 10,
-                options: CarouselOptions(
-                  height: 130,
-                  autoPlay: true,
-                  viewportFraction: 0.70,
-                  enlargeCenterPage: true,
-                  pageSnapping: true,
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  autoPlayAnimationDuration: const Duration(seconds: 1),
-                ),
-                itemBuilder: (context, itemIndex, pageViewIndex) {
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(25),
-                    child: Container(
-                      color: const Color(0xFFF68787),
-                    ),
-                  );
-                },
+                    await SharedPref().removeToken();
+                }
               ),
-            ),
 
-             const SizedBox(height: 80),
+              SizedBox(
+                width: double.infinity,
+                child: CarouselSlider.builder(
+                  itemCount: 10,
+                  options: CarouselOptions(
+                    height: 130,
+                    autoPlay: true,
+                    viewportFraction: 0.70,
+                    enlargeCenterPage: true,
+                    pageSnapping: true,
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    autoPlayAnimationDuration: const Duration(seconds: 1),
+                  ),
+                  itemBuilder: (context, itemIndex, pageViewIndex) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(25),
+                      child: Container(
+                        color: const Color(0xFFF68787),
+                      ),
+                    );
+                  },
+                ),
+              ),
+
+             const SizedBox(height: 50),
               Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 55.0),
-                child: Text(
-                  'Artikel',
-                  style: ThemeTextStyle().artikel,
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                  child: Text(
+                    'Artikel',
+                    style: ThemeTextStyle().artikel,
+                  ),
                 ),
               ),
-            ),
              
             Expanded(
-              
               child: ListView.builder(
                 itemCount: artikel.length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    color: const Color(0xFFFFFFFF), 
-                    elevation: 10,
+                return Card(
+                  color: const Color(0xFFFFA0B5),
+                  elevation: 5,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    margin: const EdgeInsets.symmetric(horizontal: 35.0, vertical: 13.0),
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
+                  margin: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 7.0), // Ubah margin untuk memperbesar jarak antar kartu
+                  child: Container(
+                    padding: const EdgeInsets.all(15.0), // Tambahkan padding untuk memperbesar isi kartu
+                    child: Row(
+                      children: [
+                        Image.network(
+                          artikel[index]["image"],
+                          width: 70, // Ubah ukuran gambar
+                          height: 70, // Ubah ukuran gambar
+                          fit: BoxFit.cover,
+                        ),
+                        const SizedBox(width: 20), // Jarak antara gambar dan teks
+                        Expanded(
+                          child: Text(
                             artikel[index]["title"],
                             style: GoogleFonts.inter(
-                              fontSize: 13,
+                              fontSize: 16, // Ubah ukuran teks
                               fontWeight: FontWeight.w600,
-                              color: const Color(0xFF646E82),
+                              color: Color.fromARGB(255, 255, 255, 255),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
-          ],
-        ),
-      );
-    }
+          ),
+        ],
+      ),
+    );
+  }
 }
