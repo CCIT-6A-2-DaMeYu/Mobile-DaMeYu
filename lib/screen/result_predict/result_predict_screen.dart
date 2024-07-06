@@ -3,14 +3,14 @@ import 'package:dameyu_project/screen/chatbot/chatbot_screen.dart';
 import 'package:dameyu_project/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 
-class ResultScreen extends StatefulWidget {
-  const ResultScreen({super.key});
+class ResultPredictScreen extends StatefulWidget {
+  const ResultPredictScreen({super.key});
 
   @override
-  State<ResultScreen> createState() => _ResultScreenState();
+  State<ResultPredictScreen> createState() => _ResultPredictScreenState();
 }
 
-class _ResultScreenState extends State<ResultScreen> {
+class _ResultPredictScreenState extends State<ResultPredictScreen> {
   @override
   void initState() {
     super.initState();
@@ -55,30 +55,30 @@ class _ResultScreenState extends State<ResultScreen> {
       ),
 
       
-      body: Padding(
-        padding: const EdgeInsets.all(30.0),
+      // body: Padding(
+      //   padding: const EdgeInsets.all(30.0),
       
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, // 3 cards per row
-            crossAxisSpacing: 8.0,
-            mainAxisSpacing: 8.0,
-            childAspectRatio: 1.1, // Adjust as needed
-          ),
-          itemCount: 9, // Number of cards, you can adjust this
-          itemBuilder: (context, index) {
-           return Card(
-                  color: const Color(0xFFFFA0B5),
+      //   child: GridView.builder(
+      //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      //       crossAxisCount: 3, // 3 cards per row
+      //       crossAxisSpacing: 8.0,
+      //       mainAxisSpacing: 8.0,
+      //       childAspectRatio: 1.1, // Adjust as needed
+      //     ),
+      //     itemCount: 9, // Number of cards, you can adjust this
+      //     itemBuilder: (context, index) {
+      //      return Card(
+      //             color: const Color(0xFFFFA0B5),
                   
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  elevation: 3,
+      //             shape: RoundedRectangleBorder(
+      //               borderRadius: BorderRadius.circular(20),
+      //             ),
+      //             elevation: 3,
                
-                );
-          },
-        ),
-      ),
+      //           );
+      //     },
+      //   ),
+      // ),
     );
   }
 }

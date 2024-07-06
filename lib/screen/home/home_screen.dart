@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dameyu_project/screen/chatbot/chatbot_screen.dart';
-import 'package:dameyu_project/services/artikel_api.dart';
+import 'package:dameyu_project/services/home/artikel_api.dart';
 import 'package:dameyu_project/screen/splash_screen/splash_screen.dart';
 import 'package:dameyu_project/theme/theme_color.dart';
 import 'package:dameyu_project/theme/theme_text_style.dart';
