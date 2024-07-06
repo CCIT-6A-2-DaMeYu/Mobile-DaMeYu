@@ -1,8 +1,5 @@
-import 'package:dameyu_project/screen/home/home_screen.dart';
 import 'package:dameyu_project/provider/login_provider.dart';
 import 'package:dameyu_project/provider/user_provider.dart';
-import 'package:dameyu_project/screen/login/login_screen.dart';
-import 'package:dameyu_project/screen/navigation_bart.dart';
 import 'package:dameyu_project/screen/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

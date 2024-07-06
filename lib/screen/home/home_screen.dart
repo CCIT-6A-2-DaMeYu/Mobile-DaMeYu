@@ -50,9 +50,64 @@ class _HomeScreenState extends State<HomeScreen> {
     print("Error fetching artikel: $error");
     }
   }
+
+  void _showArtikelDetail(Map<String, dynamic> artikel) {
+  showModalBottomSheet(
+    backgroundColor: const Color(0xFFFFA0B5),
+    context: context,
+    isScrollControlled: true, // Menambahkan ini agar modal sheet bisa ditarik ke atas sepenuhnya
+    builder: (context) {
+      return DraggableScrollableSheet(
+        expand: false, // Menambahkan ini agar modal sheet bisa ditarik ke atas sepenuhnya
+        builder: (context, scrollController) {
+          return SingleChildScrollView(
+            controller: scrollController,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 10),
+                  Center( // Membungkus judul dengan Center untuk menempatkannya di tengah
+                    child: Text(
+                      artikel['title'],
+                      textAlign: TextAlign.center, // Menambahkan textAlign center
+                      style: GoogleFonts.inter(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 255, 255, 255),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Image.network(
+                    artikel['image'],
+                    fit: BoxFit.cover,
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    artikel['description'],
+                    textAlign: TextAlign.justify,
+                    style: GoogleFonts.inter(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
+                  ),
+                  
+                ],
+              ),
+            ),
+          );
+        },
+      );
+    },
+  );
+}
+
   
-  @override
-  Widget build(BuildContext context) {
+      @override
+      Widget build(BuildContext context) {
         return Scaffold(
           backgroundColor: ThemeColor().whiteColor,
           appBar: PreferredSize(
@@ -155,38 +210,41 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
              
             Expanded(
-              child: ListView.builder(
-                itemCount: artikel.length,
-                itemBuilder: (context, index) {
+            child: ListView.builder(
+              itemCount: artikel.length,
+              itemBuilder: (context, index) {
                 return Card(
                   color: const Color(0xFFFFA0B5),
                   elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
                   margin: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 7.0), // Ubah margin untuk memperbesar jarak antar kartu
-                  child: Container(
-                    padding: const EdgeInsets.all(15.0), // Tambahkan padding untuk memperbesar isi kartu
-                    child: Row(
-                      children: [
-                        Image.network(
-                          artikel[index]["image"],
-                          width: 70, // Ubah ukuran gambar
-                          height: 70, // Ubah ukuran gambar
-                          fit: BoxFit.cover,
-                        ),
-                        const SizedBox(width: 20), // Jarak antara gambar dan teks
-                        Expanded(
-                          child: Text(
-                            artikel[index]["title"],
-                            style: GoogleFonts.inter(
-                              fontSize: 16, // Ubah ukuran teks
-                              fontWeight: FontWeight.w600,
-                              color: Color.fromARGB(255, 255, 255, 255),
+                  child: InkWell(
+                    onTap: () => _showArtikelDetail(artikel[index]), // Tambahkan fungsi onTap untuk menampilkan popup
+                    child: Container(
+                      padding: const EdgeInsets.all(15.0), // Tambahkan padding untuk memperbesar isi kartu
+                      child: Row(
+                        children: [
+                          Image.network(
+                            artikel[index]["image"],
+                            width: 70, // Ubah ukuran gambar
+                            height: 70, // Ubah ukuran gambar
+                            fit: BoxFit.cover,
+                          ),
+                          const SizedBox(width: 20), // Jarak antara gambar dan teks
+                          Expanded(
+                            child: Text(
+                              artikel[index]["title"],
+                              style: GoogleFonts.inter(
+                                fontSize: 16, // Ubah ukuran teks
+                                fontWeight: FontWeight.w600,
+                                color: const Color.fromARGB(255, 255, 255, 255),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 );
