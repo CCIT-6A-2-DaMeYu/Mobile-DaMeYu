@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "263952013521",
+    "firebase_url": "https://dameyu-iot-default-rtdb.firebaseio.com",
+    "project_id": "dameyu-iot",
+    "storage_bucket": "dameyu-iot.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263952013521:android:42bc724717d70f3e1e4df0",
+        "android_client_info": {
+          "package_name": "com.example.dameyu_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0PK35BSxSaGwaO4SandgNdDYqkN6kEIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

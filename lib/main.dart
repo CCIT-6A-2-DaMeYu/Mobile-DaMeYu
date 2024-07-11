@@ -1,10 +1,13 @@
 import 'package:dameyu_project/provider/login_provider.dart';
 import 'package:dameyu_project/provider/user_provider.dart';
 import 'package:dameyu_project/screen/splash_screen/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
     MultiProvider(
       providers: [

@@ -1,29 +1,36 @@
+import 'package:dameyu_project/model/artikel/artikel_model.dart';
 import 'package:dio/dio.dart';
+
+// Import your ArtikelModel and its JSON conversion functions here
 
 class ArtikelAPI {
   final Dio _dio = Dio();
 
- Future<List<Map<String, dynamic>>> getArtikel() async {
+  Future<List<ArtikelModel>> getArtikel() async {
     try {
       final response = await _dio.get(
         "https://6669a1f32e964a6dfed5f371.mockapi.io/dameyu/artikel",
       );
 
       if (response.statusCode == 200) {
-        return List<Map<String, dynamic>>.from(
-          response.data.map((dynamic artikel) => artikel as Map<String, dynamic>),
-        );
+        // Jika respon sukses, konversi data menjadi List<ArtikelModel>
+        List<dynamic> responseData = response.data as List<dynamic>;
+        List<ArtikelModel> artikelList = responseData.map((json) => ArtikelModel.fromJson(json)).toList();
+        
+        return artikelList;
       } else {
-        // ignore: avoid_print
+        // Jika gagal, tampilkan pesan kesalahan
         print("Failed to fetch artikel. Status code: ${response.statusCode}");
         return [];
       }
     } catch (error) {
-      // ignore: avoid_print
+      // Tangani error yang terjadi saat fetch data
       print("Error fetching artikel: $error");
       return [];
     }
   }
+}
+
 
   // Future<void> deleteReminder(String id) async {
   //   try {
@@ -62,4 +69,3 @@ class ArtikelAPI {
   //     print("Error posting Reminder data: $error");
   //   }
   // }
-}

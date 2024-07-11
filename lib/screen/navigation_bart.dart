@@ -16,7 +16,7 @@ class _NavBarState extends State<NavBar> {
   List halaman = [
     const HomeScreen(),
     const ResultPredictScreen(),
-    const ProfileScreen(),
+    ImageFromFirebaseRTDB(),
     // const Riwayat(),
   ];
 
