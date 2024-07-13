@@ -25,9 +25,11 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _getUsername().then((username) {
-      setState(() {
-        _username = username;
-      });
+      if (mounted) {
+        setState(() {
+          _username = username;
+        });
+      }
     });
     _getArtikelData();
   }
@@ -42,15 +44,19 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _getArtikelData() async {
     try {
       final List<ArtikelModel> artikelList = await _artikelAPI.getArtikel();
-      setState(() {
-        artikel = artikelList;
-        isLoading = false; // Setelah selesai ambil data, matikan isLoading
-      });
+      if (mounted) {
+        setState(() {
+          artikel = artikelList;
+          isLoading = false; // Setelah selesai ambil data, matikan isLoading
+        });
+      }
     } catch (error) {
+      if (mounted) {
+        setState(() {
+          isLoading = false; // Tangkap error, matikan isLoading
+        });
+      }
       print("Error fetching artikel: $error");
-      setState(() {
-        isLoading = false; // Tangkap error, matikan isLoading
-      });
     }
   }
 

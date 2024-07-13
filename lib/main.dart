@@ -1,5 +1,6 @@
 import 'package:dameyu_project/provider/login_provider.dart';
 import 'package:dameyu_project/provider/user_provider.dart';
+import 'package:dameyu_project/screen/navigation_bart.dart';
 import 'package:dameyu_project/screen/splash_screen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: const SplashScreen(),
+      home: const NavBar(),
     );
   }
 }
