@@ -1,5 +1,6 @@
 import 'package:dameyu_project/data/image_icon/navbar_imageicon.dart';
 import 'package:dameyu_project/screen/home/home_screen.dart';
+import 'package:dameyu_project/screen/profile/profile_screen.dart';
 import 'package:dameyu_project/screen/result_predict/result_predict_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,9 +14,9 @@ class NavBar extends StatefulWidget {
 class _NavBarState extends State<NavBar> {
   List halaman = [
     const HomeScreen(),
-    ResultPredictScreen(),
-    // ImageFromFirebaseRTDB(),
-    // const Riwayat(),
+    const ResultPredictScreen(),
+    const ProfileScreen()
+    
   ];
 
   int selectedIndex = 0;
