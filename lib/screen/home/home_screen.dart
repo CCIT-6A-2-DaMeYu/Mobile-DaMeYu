@@ -136,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ChatbotScreen()),
+                    MaterialPageRoute(builder: (context) => ChatBotScreen()),
                   );
                 },
               ),

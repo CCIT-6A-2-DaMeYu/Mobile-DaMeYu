@@ -2,15 +2,14 @@ import 'package:dameyu_project/services/chatbot/chatbot_api.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
-
-class ChatbotScreen extends StatefulWidget {
+class ChatBotScreen extends StatefulWidget {
   @override
-  _ChatbotScreenState createState() => _ChatbotScreenState();
+  _ChatBotScreenState createState() => _ChatBotScreenState();
 }
 
-class _ChatbotScreenState extends State<ChatbotScreen> {
+class _ChatBotScreenState extends State<ChatBotScreen> {
   final TextEditingController _controller = TextEditingController();
-  final ApiService apiService = ApiService(Dio());
+  final ChatBotAPI chatBotAPI = ChatBotAPI(Dio());
   List<String> messages = [];
 
   void _sendMessage() async {
@@ -19,9 +18,10 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
       messages.add('You: ${_controller.text}');
     });
     try {
-      final responseMessage = await apiService.postChat(_controller.text);
+      final responseMessage = await chatBotAPI.postChatBot(_controller.text);
+      final cleanedMessage = _cleanMessage(responseMessage);
       setState(() {
-        messages.add('Bot: $responseMessage');
+        messages.add('Bot: $cleanedMessage');
       });
     } catch (e) {
       setState(() {
@@ -32,12 +32,17 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   }
 
   void _loadChat() async {
-    final response = await apiService.getChat();
+    final response = await chatBotAPI.getChatBot();
     if (response.statusCode == 200) {
+      final cleanedMessage = _cleanMessage(response.data.toString());
       setState(() {
-        messages.add('Bot: ${response.data}');
+        messages.add('Bot: $cleanedMessage');
       });
     }
+  }
+
+  String _cleanMessage(String message) {
+    return message.replaceAll(RegExp(r'[{}]'), '').replaceAll('greeting', '').trim();
   }
 
   @override

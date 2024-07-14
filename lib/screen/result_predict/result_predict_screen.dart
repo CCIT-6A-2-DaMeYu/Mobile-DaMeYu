@@ -84,7 +84,7 @@ class _ResultPredictScreenState extends State<ResultPredictScreen> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ChatbotScreen()),
+                    MaterialPageRoute(builder: (context) => ChatBotScreen()),
                   );
                 },
               ),

@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 
-class ApiService {
+class ChatBotAPI {
   final String baseUrl = 'http://34.128.114.101:8081/chatbot';
   final Dio dio;
 
-  ApiService(this.dio);
+  ChatBotAPI(this.dio);
 
-  Future<Response> getChat() async {
+  Future<Response> getChatBot() async {
     try {
       final response = await dio.get(baseUrl);
       return response;
@@ -15,7 +15,7 @@ class ApiService {
     }
   }
 
-  Future<String> postChat(String message) async {
+  Future<String> postChatBot(String message) async {
     try {
       print('Sending message: $message');
       final response = await dio.post(
@@ -30,9 +30,12 @@ class ApiService {
       
       if (response.statusCode == 200) {
         final data = response.data;
-        // Asumsikan bahwa respons API adalah Map
+        // Assuming the API response is a Map
         if (data is Map<String, dynamic> && data.containsKey('answer')) {
-          return data['answer'];
+          String answer = data['answer'];
+          // Remove the word "greeting" and braces if present
+          answer = answer.replaceAll(RegExp(r'[{}]'), '').replaceAll('greeting', '').trim();
+          return answer;
         } else {
           return 'Unexpected response format';
         }
