@@ -2,12 +2,13 @@ import 'package:dameyu_project/services/chatbot/chatbot_api.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
-class ChatBotScreen extends StatefulWidget {
+
+class ChatbotScreen extends StatefulWidget {
   @override
-  _ChatBotScreenState createState() => _ChatBotScreenState();
+  _ChatbotScreenState createState() => _ChatbotScreenState();
 }
 
-class _ChatBotScreenState extends State<ChatBotScreen> {
+class _ChatbotScreenState extends State<ChatbotScreen> {
   final TextEditingController _controller = TextEditingController();
   final ApiService apiService = ApiService(Dio());
   List<String> messages = [];
@@ -18,32 +19,14 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
       messages.add('You: ${_controller.text}');
     });
     try {
-      final response = await apiService.postChat(_controller.text);
-      if (response.statusCode == 200) {
-        setState(() {
-          messages.add('Bot: ${response.data}');
-        });
-      } else {
-        setState(() {
-          messages.add('Error: ${response.statusMessage}');
-        });
-      }
+      final responseMessage = await apiService.postChat(_controller.text);
+      setState(() {
+        messages.add('Bot: $responseMessage');
+      });
     } catch (e) {
-      if (e is DioException) {
-        if (e.response?.data is String && e.response?.data.contains('<html>')) {
-          setState(() {
-            messages.add('Error: Received HTML response. Possible server error or wrong endpoint.');
-          });
-        } else {
-          setState(() {
-            messages.add('Error: ${e.response?.data}');
-          });
-        }
-      } else {
-        setState(() {
-          messages.add('Error: $e');
-        });
-      }
+      setState(() {
+        messages.add('Error: $e');
+      });
     }
     _controller.clear();
   }

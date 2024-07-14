@@ -15,19 +15,30 @@ class ApiService {
     }
   }
 
-   Future<Response> postChat(String message) async {
+  Future<String> postChat(String message) async {
     try {
       print('Sending message: $message');
       final response = await dio.post(
         baseUrl,
-        data: {'query': message}, // Mengirimkan data sebagai JSON
+        data: {'query': message},
         options: Options(
           headers: {'Content-Type': 'application/json'},
         ),
       );
       print('Response status: ${response.statusCode}');
       print('Response data: ${response.data}');
-      return response;
+      
+      if (response.statusCode == 200) {
+        final data = response.data;
+        // Asumsikan bahwa respons API adalah Map
+        if (data is Map<String, dynamic> && data.containsKey('answer')) {
+          return data['answer'];
+        } else {
+          return 'Unexpected response format';
+        }
+      } else {
+        return 'Error: ${response.statusMessage}';
+      }
     } catch (e) {
       if (e is DioException) {
         print('DioException occurred: ${e.response?.data}');
