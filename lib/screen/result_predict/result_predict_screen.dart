@@ -3,6 +3,7 @@ import 'package:dameyu_project/model/result_predict/result_predict_model.dart';
 import 'package:dameyu_project/screen/chatbot/chatbot_screen.dart';
 import 'package:dameyu_project/services/result_predict/result_predict_api.dart';
 import 'package:dameyu_project/theme/theme_color.dart';
+import 'package:dameyu_project/theme/theme_text_style.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
@@ -131,20 +132,19 @@ class _ResultPredictScreenState extends State<ResultPredictScreen> {
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: ThemeColor().pinkColor, // Set button color
-              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+              padding: EdgeInsets.symmetric(horizontal: 60, vertical: 13),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(15),
               ),
             ),
-            child: Text(
-              'Get Prediction',
-              style: TextStyle(
-                color: ThemeColor().whiteColor,
-                fontSize: 16,
-              ),
+             child: Text(
+              'Apple Predict',
+              style: ThemeTextStyle().applePredict,
             ),
           ),
-          SizedBox(height: 20), // Add spacing between button and result
+          const SizedBox(height: 20), // Add spacing between button and result card
+
+          // Result card
           if (_futureResult != null)
             FutureBuilder<ResultPredictModel>(
               future: _futureResult,
@@ -156,14 +156,34 @@ class _ResultPredictScreenState extends State<ResultPredictScreen> {
                 } else if (snapshot.hasData) {
                   final result = snapshot.data!;
                   return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Estimation: ${result.data.estimation}'),
-                        Text('Ripeness: ${result.data.ripeness}'),
-                        Text('Status Code: ${result.status.code}'),
-                        Text('Pesan: ${result.status.message}'),
-                      ],
+                    child: Card(
+                      color: const Color(0xFFFFA0B5),
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: SizedBox(
+                        width: 290, // Set your desired width
+                        height: 100, // Set your desired height
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                               Text(
+                                'Estimation : ${result.data.estimation} Day',
+                                style: ThemeTextStyle().applePredict,
+                              ),
+                              Text('Ripeness    : ${result.data.ripeness}',
+                              style: ThemeTextStyle().applePredict,
+                              ),
+                              // Text('Status Code: ${result.status.code}'),
+                              // Text('Pesan: ${result.status.message}'),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   );
                 } else {

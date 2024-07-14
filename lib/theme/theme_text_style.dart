@@ -27,4 +27,10 @@ class ThemeTextStyle {
     fontWeight: FontWeight.w700,
     color: ThemeColor().pinkColor,
   );
+
+  TextStyle applePredict = GoogleFonts.poppins(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: ThemeColor().whiteColor,
+  );
 }

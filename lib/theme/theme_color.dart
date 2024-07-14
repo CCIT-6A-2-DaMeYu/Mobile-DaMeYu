@@ -7,4 +7,5 @@ class ThemeColor {
   Color pinkColor = const Color(0xFFEB6383);
   Color pink2Color = const Color(0xFFFFCBCB);
   Color pink3Color = const Color(0xFFF68787);
+  Color pink4Color = const Color(0xFFFFA0B5);
 }
