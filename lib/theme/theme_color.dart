@@ -8,4 +8,6 @@ class ThemeColor {
   Color pink2Color = const Color(0xFFFFCBCB);
   Color pink3Color = const Color(0xFFF68787);
   Color pink4Color = const Color(0xFFFFA0B5);
+   Color greyColor = Color.fromARGB(255, 75, 73, 73);
+   
 }

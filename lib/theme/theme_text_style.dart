@@ -33,4 +33,21 @@ class ThemeTextStyle {
     fontWeight: FontWeight.w600,
     color: ThemeColor().whiteColor,
   );
+
+  TextStyle chatBotHeader = GoogleFonts.leagueSpartan(
+    fontSize: 21,
+    fontWeight: FontWeight.w600,
+    color: ThemeColor().blackColor,
+  );
+
+  TextStyle chatBot = GoogleFonts.leagueSpartan(
+    fontSize: 17,
+    fontWeight: FontWeight.w500,
+    color: ThemeColor().blackColor,
+  );
+  TextStyle chatBotText = GoogleFonts.leagueSpartan(
+    fontSize: 17,
+    fontWeight: FontWeight.w500,
+    color: ThemeColor().greyColor
+  );
 }
