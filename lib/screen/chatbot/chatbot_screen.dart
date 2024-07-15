@@ -60,71 +60,144 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Chatbot',
-          style: TextStyle(
-            fontSize: 20, // Menentukan ukuran font
-            fontWeight: FontWeight.bold, // Menentukan ketebalan font
-            color: Colors.pink, // Menentukan warna font
+        leading: IconButton(
+    icon: Image.asset(
+      'assets/back.png', // Ganti dengan path gambar Anda
+      height: 24, // Sesuaikan tinggi gambar
+      width: 24, // Sesuaikan lebar gambar
+    ),
+    onPressed: () {
+      Navigator.pop(context); // Kembali ke halaman sebelumnya
+    },
+  ),
+  backgroundColor: Colors.white, // Menentukan warna latar belakang AppBar
+  elevation: 3.0, // Menentukan elevasi AppBar
+  shadowColor: Colors.grey.withOpacity(0.5), // Menentukan warna bayangan
+  title: Stack(
+    children: <Widget>[
+      Align(
+        alignment: Alignment.center,
+        child: Transform.translate(
+          offset: Offset(-30, 0), // Geser kiri atau kanan dengan mengganti nilai x
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Image.asset(
+                'assets/chatbot.png',
+                height: 30, // Sesuaikan tinggi gambar
+              ),
+              const SizedBox(width: 10), // Spasi antara gambar dan teks
+              const Text(
+                'ChatBot',
+                style: TextStyle(
+                  fontSize: 20, // Menentukan ukuran font
+                  fontWeight: FontWeight.bold, // Menentukan ketebalan font
+                  color: Colors.pink, // Menentukan warna font
+                ),
+              ),
+            ],
           ),
         ),
-        
-        centerTitle: true, // Menempatkan teks di tengah
-        backgroundColor: Colors.white, // Menentukan warna latar belakang AppBar
-        elevation: 3.0, // Menentukan elevasi AppBar
-        shadowColor: Colors.grey.withOpacity(0.5), // Menentukan warna bayangan
       ),
+    ],
+  ),
+),
+
+
       body: Column(
-        children: <Widget>[
-          Expanded(
-            child: ListView.builder(
-              itemCount: messages.length,
-              itemBuilder: (context, index) {
-                bool isBot = isBotMessages[index];
-                return Align(
-                  alignment: isBot ? Alignment.centerLeft : Alignment.centerRight,
-                  child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: isBot ? Colors.pink: Colors.pink,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Text(
-                      messages[index],
-                      style: TextStyle(
-                        color: isBot ? Colors.white : Colors.white,
+  children: <Widget>[
+    const SizedBox(height: 15),
+    Expanded(
+      child: ListView.builder(
+        itemCount: messages.length,
+        itemBuilder: (context, index) {
+          bool isBot = isBotMessages[index];
+          return Align(
+            alignment: isBot ? Alignment.centerLeft : Alignment.centerRight,
+            child: Container(
+              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              child: Row(
+                mainAxisAlignment: isBot ? MainAxisAlignment.start : MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (isBot)
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Image.asset(
+                        'assets/chatbot.png', // Path ke gambar aset Anda
+                        height: 30, // Sesuaikan ukuran gambar
+                        width: 30, // Sesuaikan ukuran gambar
                       ),
                     ),
-                  ),
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: TextField(
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      hintText: 'Type a message',
-                      border: OutlineInputBorder(
+                  Flexible(
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: isBot ? Colors.pink : Colors.pink,
                         borderRadius: BorderRadius.circular(10),
                       ),
+                      child: Text(
+                        messages[index],
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.send),
-                  onPressed: _sendMessage,
-                ),
-              ],
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    ),
+    Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.grey[200], // Warna latar belakang abu-abu
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: TextField(
+            controller: _controller,
+            decoration: InputDecoration(
+              hintText: 'What do you want to ask?',
+              border: InputBorder.none, // Menghilangkan border
+              contentPadding: EdgeInsets.all(10), // Padding di dalam TextField
             ),
           ),
+        ),
+      ),
+      SizedBox(width:15), // Jarak antara TextField dan IconButton
+           Card(
+            color: Colors.pink,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        elevation: 3.0,
+        child: IconButton(
+          icon: Icon(
+            Icons.send,
+            color: Colors.white,
+          ),
+          onPressed: _sendMessage,
+          
+        ),
+        
+      ),
+          
         ],
       ),
+    ),
+  ],
+),
+
+
+
+
     );
   }
 }
