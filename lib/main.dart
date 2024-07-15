@@ -1,5 +1,6 @@
 import 'package:dameyu_project/provider/login_provider.dart';
 import 'package:dameyu_project/provider/user_provider.dart';
+import 'package:dameyu_project/screen/chatbot/chatbot_screen.dart';
 import 'package:dameyu_project/screen/navigation_bart.dart';
 import 'package:dameyu_project/screen/result_predict/result_predict_screen.dart';
 import 'package:dameyu_project/screen/splash_screen/splash_screen.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: const NavBar(),
+      home:  NavBar(),
     );
   }
 }
