@@ -16,6 +16,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
   List<String> messages = [];
   List<bool> isBotMessages = [];
   List<DateTime> messageTimes = []; // List to hold timestamps for each message
+  final ScrollController _scrollController = ScrollController();
 
   void _sendMessage() async {
     if (_controller.text.isEmpty) return;
@@ -24,6 +25,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
       isBotMessages.add(false); // False indicates user message
       messageTimes.add(DateTime.now()); // Add current time as timestamp
     });
+    _scrollToBottom();
     try {
       final responseMessage = await chatBotAPI.postChatBot(_controller.text);
       final cleanedMessage = _cleanMessage(responseMessage);
@@ -32,12 +34,14 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
         isBotMessages.add(true); // True indicates bot message
         messageTimes.add(DateTime.now()); // Add current time as timestamp
       });
+      _scrollToBottom();
     } catch (e) {
       setState(() {
         messages.add('Error: $e');
         isBotMessages.add(true); // Show error as bot message for consistency
         messageTimes.add(DateTime.now()); // Add current time as timestamp
       });
+      _scrollToBottom();
     }
     _controller.clear();
   }
@@ -51,6 +55,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
         isBotMessages.add(true); // Bot message
         messageTimes.add(DateTime.now()); // Add current time as timestamp
       });
+      _scrollToBottom();
     }
   }
 
@@ -62,10 +67,28 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
     return DateFormat('HH:mm').format(timestamp); // Format timestamp as HH:mm
   }
 
+  void _scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     _loadChat();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -118,6 +141,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
           const SizedBox(height: 15),
           Expanded(
             child: ListView.builder(
+              controller: _scrollController, // Attach ScrollController
               itemCount: messages.length,
               itemBuilder: (context, index) {
                 bool isBot = isBotMessages[index];
@@ -147,8 +171,8 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                               child: Container(
                                 padding: EdgeInsets.all(13),
                                 decoration: BoxDecoration(
-                                  color: ThemeColor().pink2Color,
-                                  // color: isBot ? Colors.pink : Colors.pink,
+                                  // color: ThemeColor().pink2Color,
+                                  color: isBot ? Color(0xFFFFCBCB) : Color(0xFFEB6383),
                                   borderRadius: isBot
                             ? const BorderRadius.only(
                                 topLeft: Radius.circular(14),
@@ -166,9 +190,11 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                                 constraints: BoxConstraints(
                         maxWidth: MediaQuery.of(context).size.width * 0.7, // Batasi lebar maksimum
                       ),
-                                child: Text(
+                                child:  Text(
                                   messages[index],
-                                  style: ThemeTextStyle().chatBot,
+                                  style: isBot
+                                  ? ThemeTextStyle().chatBot // Gaya teks untuk bot
+                                  : ThemeTextStyle().chatBot.copyWith(color: Colors.white), // Gaya teks untuk post dengan warna putih
                                 ),
                               ),
                             ),
