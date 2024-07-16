@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ThemeTextStyle {
-  TextStyle welcome = GoogleFonts.poppins(
-    fontSize: 35,
-    fontWeight: FontWeight.w600,
+  TextStyle welcome = GoogleFonts.leagueSpartan(
+    fontSize: 36,
+    fontWeight: FontWeight.w800,
     color: ThemeColor().pinkColor,
   );
 
@@ -16,10 +16,10 @@ class ThemeTextStyle {
     color: ThemeColor().pinkColor,
   );
 
-  TextStyle login = GoogleFonts.poppins(
-    fontSize: 18,
-    fontWeight: FontWeight.w600,
-    color: ThemeColor().white2Color,
+  TextStyle login = GoogleFonts.leagueSpartan(
+    fontSize: 25,
+    fontWeight: FontWeight.w700,
+    color: ThemeColor().whiteColor,
   );
 
   TextStyle artikel = GoogleFonts.poppins(

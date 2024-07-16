@@ -20,7 +20,6 @@ class LoginProvider with ChangeNotifier {
     super.dispose();
   }
 
-
   void setUsernameValue(String value) {
     _usernameValue = value;
     notifyListeners();

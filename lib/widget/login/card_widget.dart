@@ -1,10 +1,8 @@
-
 import 'package:dameyu_project/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 
 class CardWidget extends StatelessWidget {
   final Widget child;
-
   const CardWidget({super.key, required this.child});
 
   @override

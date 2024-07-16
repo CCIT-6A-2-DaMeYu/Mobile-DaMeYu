@@ -1,4 +1,3 @@
-
 import 'package:dameyu_project/theme/theme_color.dart';
 import 'package:dameyu_project/theme/theme_text_style.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +15,11 @@ class ButtonLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-      backgroundColor: ThemeColor().pinkColor,
-      padding: const EdgeInsets.symmetric(horizontal: 130.0, vertical: 15.0),
+        backgroundColor: ThemeColor().pinkColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 7.0),
       ),
       onPressed: onPressed, 
       child: Text(

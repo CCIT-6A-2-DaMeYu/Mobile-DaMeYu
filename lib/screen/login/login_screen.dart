@@ -1,4 +1,3 @@
-
 import 'package:dameyu_project/provider/login_provider.dart';
 import 'package:dameyu_project/screen/navigation_bart.dart';
 import 'package:dameyu_project/theme/theme_text_style.dart';
@@ -10,14 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
-   const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   late Size mediaSize;
 
   @override
@@ -45,7 +43,6 @@ class _LoginScreenState extends State<LoginScreen> {
           const SizedBox(height: 20),
           Image.asset(
             "assets/logo3.png",
-           
           ),
         ],
       ),
@@ -62,15 +59,15 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget titleCard() {
-  return Consumer<LoginProvider>(
-    builder: (context, loginProvider, child) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Welcome!",
-            style: ThemeTextStyle().welcome,
-          ),
+    return Consumer<LoginProvider>(
+      builder: (context, loginProvider, child) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Welcome!",
+              style: ThemeTextStyle().welcome,
+            ),
 
             const SizedBox(height: 30),
             TextFieldWidget(
@@ -80,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
               onChanged: (val) {
                 loginProvider.setUsernameValue(val);
                 loginProvider.usernameValidator(val);
-              },
+              }, 
             ),
 
             const SizedBox(height: 20),
@@ -92,35 +89,37 @@ class _LoginScreenState extends State<LoginScreen> {
               onChanged: (val) {
                 loginProvider.setPasswordValue(val);
                 loginProvider.passwordValidation(val);
-              },
+              }, 
             ),
 
             const SizedBox(height: 30),
             const SizedBox(height: 10),
             
-            ButtonLogin(
+           Center(
+            child: ButtonLogin(
               title: 'Login',
               onPressed: (loginProvider.usernameValue.isNotEmpty && loginProvider.passwordValue.isNotEmpty)
               ? () async {
-              await SharedPref().saveToken(
-                loginProvider.usernameController.text,
-                loginProvider.passwordController.text,
-              );
-              // ignore: use_build_context_synchronously
-              Navigator.pushReplacement(
+                await SharedPref().saveToken(
+                  loginProvider.usernameController.text,
+                  loginProvider.passwordController.text,
+                );
                 // ignore: use_build_context_synchronously
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const NavBar(),
-                ),
-              );
-            }
-          : null,
-        ),
-        const SizedBox(height: 70),
-      ],
+                Navigator.pushReplacement(
+                  // ignore: use_build_context_synchronously
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const NavBar(),
+                  ),
+                );
+              }
+              : null,
+            ),
+          ),
+          const SizedBox(height: 70),
+          ],
+        );
+      }
     );
-    });
   }
 }
-
