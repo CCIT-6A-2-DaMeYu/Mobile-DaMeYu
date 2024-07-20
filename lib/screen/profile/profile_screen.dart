@@ -1,4 +1,7 @@
+import 'package:dameyu_project/screen/splash_screen/splash_screen.dart';
 import 'package:dameyu_project/theme/theme_color.dart';
+import 'package:dameyu_project/theme/theme_text_style.dart';
+import 'package:dameyu_project/utils/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -37,6 +40,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
       ),
-    );
-  }
+      body: Center(
+      child: ElevatedButton(
+        onPressed: () async {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const SplashScreen(),
+            ),
+            (route) => false,
+          );
+          await SharedPref().removeToken();
+        },
+        child: Text(
+          'Logout',
+          style: ThemeTextStyle().login,
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: ThemeColor().pinkColor, // Warna latar belakang tombol
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 7.0),
+        ),
+      ),
+    ),
+  );
 }
+    
+  }

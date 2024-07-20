@@ -66,19 +66,24 @@ class _ResultPredictScreenState extends State<ResultPredictScreen> {
     return Scaffold(
       backgroundColor: ThemeColor().whiteColor,
       appBar: PreferredSize(
+        
         preferredSize: const Size.fromHeight(70.0),
         child: AppBar(
           backgroundColor: ThemeColor().pinkColor,
           centerTitle: true,
           title: Align(
-            alignment: Alignment.centerLeft,
-            child: Image.asset(
-              'assets/logo2.png',
-            ),
-          ),
+  alignment: Alignment.centerLeft,
+  child: Container(
+    margin: const EdgeInsets.only(left: 20.0), // Adjust the value to move it to the right
+    child: Image.asset(
+      'assets/logo2.png',
+    ),
+  ),
+),
+
           actions: [
             Padding(
-              padding: const EdgeInsets.only(right: 20.0),
+              padding: const EdgeInsets.only(right: 25.0),
               child: IconButton(
                 icon: Image.asset('assets/chatbotbutton.png'),
                 onPressed: () {
@@ -98,7 +103,6 @@ class _ResultPredictScreenState extends State<ResultPredictScreen> {
           ),
         ),
       ),
-
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -163,7 +167,7 @@ class _ResultPredictScreenState extends State<ResultPredictScreen> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: SizedBox(
-                        width: 290, // Set your desired width
+                        width: 250, // Set your desired width
                         height: 100, // Set your desired height
                         child: Padding(
                           padding: const EdgeInsets.all(20.0),
@@ -173,10 +177,10 @@ class _ResultPredictScreenState extends State<ResultPredictScreen> {
                             children: [
                                Text(
                                 'Estimation : ${result.data.estimation} Day',
-                                style: ThemeTextStyle().applePredict,
+                                style: ThemeTextStyle().resultPredict,
                               ),
                               Text('Ripeness    : ${result.data.ripeness}',
-                              style: ThemeTextStyle().applePredict,
+                              style: ThemeTextStyle().resultPredict,
                               ),
                               // Text('Status Code: ${result.status.code}'),
                               // Text('Pesan: ${result.status.message}'),

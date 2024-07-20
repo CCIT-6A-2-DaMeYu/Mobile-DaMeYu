@@ -10,9 +10,9 @@ class ThemeTextStyle {
     color: ThemeColor().pinkColor,
   );
 
-  TextStyle welcomeUsername = GoogleFonts.poppins(
-    fontSize: 15,
-    fontWeight: FontWeight.w600,
+  TextStyle welcomeUsername = GoogleFonts.istokWeb(
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
     color: ThemeColor().pinkColor,
   );
 
@@ -22,15 +22,21 @@ class ThemeTextStyle {
     color: ThemeColor().whiteColor,
   );
 
-  TextStyle artikel = GoogleFonts.poppins(
-    fontSize: 20,
+  TextStyle artikel = GoogleFonts.leagueSpartan(
+    fontSize: 25,
     fontWeight: FontWeight.w700,
     color: ThemeColor().pinkColor,
   );
 
-  TextStyle applePredict = GoogleFonts.poppins(
-    fontSize: 18,
-    fontWeight: FontWeight.w600,
+  TextStyle applePredict = GoogleFonts.leagueSpartan(
+    fontSize: 21,
+    fontWeight: FontWeight.w700,
+    color: ThemeColor().whiteColor,
+  );
+
+  TextStyle resultPredict = GoogleFonts.istokWeb(
+    fontSize: 19,
+    fontWeight: FontWeight.w700,
     color: ThemeColor().whiteColor,
   );
 

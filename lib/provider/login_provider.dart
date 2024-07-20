@@ -32,7 +32,7 @@ class LoginProvider with ChangeNotifier {
 
   void usernameValidator(String value) {
     if (value.isEmpty) {
-      messageErrorUsernameValue = "Username tidak boleh kosong!";
+      messageErrorUsernameValue = "Username cannot be empty!";
     } else {
       messageErrorUsernameValue = null;
     }
@@ -41,7 +41,7 @@ class LoginProvider with ChangeNotifier {
 
   void passwordValidation(String value) {
     if (value.isEmpty) {
-      messageErrorPasswordValue = "Password tidak boleh kosong!";
+      messageErrorPasswordValue = "Password cannot be empty!";
     } else {
       messageErrorPasswordValue = null;
     }
