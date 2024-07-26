@@ -142,7 +142,7 @@ class _ResultPredictScreenState extends State<ResultPredictScreen> {
               ),
             ),
              child: Text(
-              'Apple Predict',
+              'Apple Prediction',
               style: ThemeTextStyle().applePredict,
             ),
           ),

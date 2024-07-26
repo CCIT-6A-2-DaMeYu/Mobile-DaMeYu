@@ -28,6 +28,12 @@ class ThemeTextStyle {
     color: ThemeColor().whiteColor,
   );
 
+  TextStyle contentLogout = GoogleFonts.leagueSpartan(
+    fontSize: 17,
+    fontWeight: FontWeight.w500,
+    color: ThemeColor().whiteColor,
+  );
+
   TextStyle changeProfile = GoogleFonts.leagueSpartan(
     fontSize: 21,
     fontWeight: FontWeight.w600,

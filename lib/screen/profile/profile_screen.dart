@@ -19,6 +19,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
   File? _profileImage;
   final ImagePicker _picker = ImagePicker();
 
+  @override
+  void initState() {
+    super.initState();
+    _loadProfileImage();
+    _getUsername().then((username) {
+      if (mounted) {
+        setState(() {
+          _username = username;
+        });
+      }
+    });
+  }
+
   Future<void> _loadProfileImage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? imagePath = prefs.getString('profile_image');
@@ -40,19 +53,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _loadProfileImage();
-    _getUsername().then((username) {
-      if (mounted) {
-        setState(() {
-          _username = username;
-        });
-      }
-    });
-  }
-
   Future<String> _getUsername() async {
     final username = await SharedPref().getToken();
     return username;
@@ -71,6 +71,62 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  void _showLogoutConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: ThemeColor().pinkColor,
+          title: Center(
+            child: Text(
+              'Logout',
+              textAlign: TextAlign.center,
+              style: ThemeTextStyle().login,
+            ),
+          ),
+          content: Text(
+            'Are you sure you want to logout?',
+            style: ThemeTextStyle().contentLogout,
+          ),
+          actions: <Widget>[
+            ButtonBar(
+              alignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    'No',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: ThemeColor().pink2Color,
+                    foregroundColor: ThemeColor().pinkColor, // Text color
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    _logout();
+                  },
+                  child: Text(
+                    'Yes',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: ThemeColor().pink2Color,
+                    foregroundColor: ThemeColor().pinkColor, // Text color
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,14 +136,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: AppBar(
           backgroundColor: ThemeColor().pinkColor,
           centerTitle: true,
-          title: Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              margin: const EdgeInsets.only(left: 20.0), // Adjust the value to move it to the right
-              child: Image.asset(
-                'assets/logo2.png',
+          title: Stack(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  margin: const EdgeInsets.only(left: 20.0),
+                  child: Image.asset('assets/logo2.png'),
+                ),
               ),
-            ),
+              Positioned(
+                top: 23.0, // Adjust this value to move the text down
+                left: 5,
+                right: 0,
+                child: Center(
+                  child: Text(
+                    'Profile',
+                    style: TextStyle(
+                      fontFamily: 'LeagueSpartan',
+                      color: ThemeColor().whiteColor,
+                      fontSize: 23.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
@@ -143,7 +217,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(height: 10),
             SizedBox(height: 170),
             ElevatedButton(
-              onPressed: _logout,
+              onPressed: _showLogoutConfirmationDialog,
               child: Text(
                 'Logout',
                 style: ThemeTextStyle().login, // Gaya teks untuk tombol logout
