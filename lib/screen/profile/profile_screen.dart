@@ -15,11 +15,9 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-   String _username = "";
+  String _username = "";
   File? _profileImage;
   final ImagePicker _picker = ImagePicker();
-
-  
 
   Future<void> _loadProfileImage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -53,7 +51,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         });
       }
     });
-
   }
 
   Future<String> _getUsername() async {
@@ -61,6 +58,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return username;
   }
 
+  Future<void> _logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token'); // Clear the token
+    await prefs.remove('profile_image'); // Clear the profile image path
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const SplashScreen(),
+      ),
+      (route) => false,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,16 +81,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
           backgroundColor: ThemeColor().pinkColor,
           centerTitle: true,
           title: Align(
-  alignment: Alignment.centerLeft,
-  child: Container(
-    margin: const EdgeInsets.only(left: 20.0), // Adjust the value to move it to the right
-    child: Image.asset(
-      'assets/logo2.png',
-    ),
-  ),
-),
-
-          
+            alignment: Alignment.centerLeft,
+            child: Container(
+              margin: const EdgeInsets.only(left: 20.0), // Adjust the value to move it to the right
+              child: Image.asset(
+                'assets/logo2.png',
+              ),
+            ),
+          ),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(40),
@@ -92,10 +99,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       body: Center(
         child: Column(
-          
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-        
             _profileImage != null
                 ? CircleAvatar(
                     radius: 50,
@@ -109,18 +114,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       onPressed: _pickImage,
                     ),
                   ),
-                  SizedBox(height: 20),
-             Align(
-            alignment: Alignment.center,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40.0),
-              child: Text(
-                // ignore: unnecessary_string_interpolations
-                '$_username',
-                style: ThemeTextStyle().profile,
+            SizedBox(height: 20),
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                child: Text(
+                  '$_username',
+                  style: ThemeTextStyle().profile,
+                ),
               ),
             ),
-          ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: _pickImage,
@@ -138,19 +142,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             SizedBox(height: 10),
             SizedBox(height: 170),
-            
             ElevatedButton(
-              onPressed: () async {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const SplashScreen(),
-                  ),
-                  (route) => false,
-                );
-                await SharedPref().removeToken();
-              },
-              
+              onPressed: _logout,
               child: Text(
                 'Logout',
                 style: ThemeTextStyle().login, // Gaya teks untuk tombol logout
