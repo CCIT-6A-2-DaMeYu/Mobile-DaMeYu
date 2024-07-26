@@ -16,11 +16,24 @@ class ThemeTextStyle {
     color: ThemeColor().pinkColor,
   );
 
+  TextStyle profile = GoogleFonts.istokWeb(
+    fontSize: 23,
+    fontWeight: FontWeight.w800,
+    color: ThemeColor().pinkColor,
+  );
+
   TextStyle login = GoogleFonts.leagueSpartan(
     fontSize: 25,
     fontWeight: FontWeight.w700,
     color: ThemeColor().whiteColor,
   );
+
+  TextStyle changeProfile = GoogleFonts.leagueSpartan(
+    fontSize: 21,
+    fontWeight: FontWeight.w600,
+    color: ThemeColor().whiteColor,
+  );
+  
 
   TextStyle artikel = GoogleFonts.leagueSpartan(
     fontSize: 25,

@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dameyu_project/model/artikel/artikel_model.dart';
 import 'package:dameyu_project/screen/chatbot/chatbot_screen.dart';
